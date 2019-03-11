@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/174334892.svg)](https://zenodo.org/badge/latestdoi/174334892) [![Build Status](https://travis-ci.com/erickmartins/autoQC_extras.svg?branch=master)](https://travis-ci.com/erickmartins/autoQC_extras)
+[![DOI](https://zenodo.org/badge/175026051.svg)](https://zenodo.org/badge/latestdoi/175026051) [![Build Status](https://travis-ci.com/erickmartins/autoQC_extras.svg?branch=master)](https://travis-ci.com/erickmartins/autoQC_extras)
 
 
 
