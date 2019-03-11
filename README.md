@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/174334892.svg)](https://zenodo.org/badge/latestdoi/174334892) [![Build Status](https://travis-ci.com/erickmartins/CostedBookings.svg?branch=master)](https://travis-ci.com/erickmartins/CostedBookings)
+[![DOI](https://zenodo.org/badge/174334892.svg)](https://zenodo.org/badge/latestdoi/174334892) [![Build Status](https://travis-ci.com/erickmartins/autoQC_extras.svg?branch=master)](https://travis-ci.com/erickmartins/autoQC_extras)
 
 
 
