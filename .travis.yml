@@ -4,5 +4,10 @@ python:
 install:
   - pip install -r requirements.txt
 # command to run tests
+
+env:
+  - DISPLAY=:99.0
+before_install:
+  - sh -e /etc/init.d/xvfb start
 script:
   - pytest
