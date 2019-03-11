@@ -12,5 +12,5 @@ def get_subdirectories(directory):
 
     directories = []
     for root, dirs, files in os.walk(directory):
-        directories.append(dir)
-    return directories
+        directories.append(dirs)
+    return directories[0]
