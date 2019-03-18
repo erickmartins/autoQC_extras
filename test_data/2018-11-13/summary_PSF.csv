@@ -1,0 +1,5 @@
+filename,bead_id,x_resolution,y_resolution,z_resolution
+,,,,
+100x_psf_auxin_sf01_R3D.dv,0,0.22,0.28,0.94
+100x_psf_auxin_sf01_R3D.dv,1,0.24,0.31,0.88
+100x_psf_auxin_sf01_R3D.dv,2,0.27,0.22,0.8

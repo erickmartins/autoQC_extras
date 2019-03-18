@@ -14,21 +14,12 @@ def test_newframe_empty_pow():
     folder = "test"
     assert append_data_pow(newframe,oldframe,folder).equals(oldframe)
 
-def test_oldframe_empty_psf():
+if __name__ == "__main__":
     import pandas as pd
-    oldframe = pd.DataFrame()
-    newframe = pd.DataFrame(['test'])
-    compare = newframe.copy()
-    folder = "date"
-    assert append_data_psf(newframe,oldframe,folder).equals(compare)
-
-def test_oldframe_empty_pow():
-    import pandas as pd
-    oldframe = pd.DataFrame()
-    newframe = pd.DataFrame(['test'])
-    compare = newframe.copy()
-    folder = "test"
-    assert append_data_pow(newframe,oldframe,folder).equals(compare)
-
-
+    new = pd.read_csv("test_data/summary_power.csv")
+    first = pd.DataFrame()
+    old = pd.read_csv("test_data/summary_power.csv")
+    print(append_data_pow(old,first, "20180325"))
+    
+    print(append_data_pow(new,old, "20190315"))
     

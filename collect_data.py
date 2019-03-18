@@ -4,7 +4,7 @@ def collect_data_psf(folder):
     import pandas as pd
     import os
     if os.path.exists(os.path.join(folder,"summary_PSF.csv")):
-        data = pd.read_csv(os.path.join(folder,"summary_PSF.csv"))
+        data = pd.read_csv(os.path.join(folder,"summary_PSF.csv"),skiprows=[1])
     else:
         return []
 

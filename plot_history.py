@@ -13,8 +13,10 @@ def plot_history():
     for folder in subs:
         data_psf = collect_data_psf(os.path.join(directory,folder))
         data_pow = collect_data_pow(os.path.join(directory,folder))
-        frame_pow = append_data_pow(data_pow, frame_pow, folder)
-        frame_psf = append_data_psf(data_psf, frame_psf, folder)
+        if isinstance(data_pow, pd.DataFrame):
+            frame_pow = append_data_pow(data_pow, frame_pow, folder)
+        if isinstance(data_psf, pd.DataFrame):
+            frame_psf = append_data_psf(data_psf, frame_psf, folder)
     
     plot_psf(frame_psf)
     plot_pow(frame_pow)
