@@ -182,7 +182,7 @@ def plot_psf(frame):
     'data': data,
     'layout': layout,
 }
-    url = py.offline.plot(fig, filename="test_data/psf.html")
+    url = py.offline.plot(fig, filename="psf.html")
 
     return []
 
@@ -217,7 +217,7 @@ def plot_pow(frame):
                 )
             )
         data.append(trace)
-    url = py.offline.plot(data, filename="test_data/pow.html")
+    url = py.offline.plot(data, filename="pow.html")
     return []
 
 

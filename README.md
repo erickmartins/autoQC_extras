@@ -2,10 +2,10 @@
 
 
 
-CostedBookings - python project to generate microscope usage costs from Google Calendar  
+autoQC_extras - plotting utilities for autoQC 
 
 
-Continuing development by Erick Ratamero, original work by Claire Mitchell  
+Continuing development by Erick Ratamero, experimental input and testing by Claire Mitchell  
 https://www.warwick.ac.uk/camdu
 
 
@@ -13,8 +13,10 @@ https://www.warwick.ac.uk/camdu
 
 Usage Instructions:
 
-Run costedbookings.py, log into your Google account when required. Note that a lot of the code
-is tailor-made for our usage, so you might need to do some adapting.  
+Run plot_history.py. It will look for "summary_PSF.csv" and "summary_power.csv" files inside
+your folder of choice, and use the folder name where they are as the date (suggested folder names
+should follow the format YYYY-MM-DD). It will generate Plotly HTML files that can be uploaded
+to a website for interactive plots.
 
 
 ==========================================================================================
