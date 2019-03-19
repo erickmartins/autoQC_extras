@@ -2,11 +2,16 @@ import plotly as py
 import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
+import os
 
 
 
-def plot_psf(frame):
+
+
+
+def plot_psf(frame, directory, lateral, axial):
     newframe = pd.DataFrame()
+    print(frame)
     counter = 0
     for index, row in frame.iterrows():
             
@@ -18,27 +23,30 @@ def plot_psf(frame):
             newframe.loc[counter,'Rayleigh limit (um)'] = measure
             if i == 3:
                 newframe.loc[counter,'measurement'] = 'red'
+                newframe.loc[counter,'axis'] = 'x'
             if i == 4:
                 newframe.loc[counter,'measurement'] = 'blue'
+                newframe.loc[counter,'axis'] = 'y'
             if i == 5:
                 newframe.loc[counter,'measurement'] = 'green'
+                newframe.loc[counter,'axis'] = 'z'
             counter = counter +1 
     summary = newframe.groupby(['date', 'measurement']).aggregate(np.average)    
     summary = summary.add_suffix('_summary').reset_index()
     
-    x_points = newframe[newframe['measurement'] == 'red']
-    y_points = newframe[newframe['measurement'] == 'blue']
-    z_points = newframe[newframe['measurement'] == 'green']
+   
+    trace1 = go.Scatter(
+    x = newframe['date'],
+    y = newframe['Rayleigh limit (um)'],
     
-    trace1x = go.Scatter(
-    x = x_points['date'],
-    y = x_points['Rayleigh limit (um)'],
     mode='markers',
     opacity = 0.5,
-    name = 'x',
+    showlegend=False,
+    #hoverinfo="x+y",
+    text=newframe['axis'],
     marker=dict(
         size=10,
-        color = x_points['measurement'], #set color equal to a variable
+        color = newframe['measurement'], #set color equal to a variable
         colorscale='Viridis',
         showscale=False,
         
@@ -49,46 +57,13 @@ def plot_psf(frame):
     )
     )
 
-    trace1y = go.Scatter(
-    x = y_points['date'],
-    y = y_points['Rayleigh limit (um)'],
-    mode='markers',
-    name = 'y',
-    opacity = 0.5,
-    marker=dict(
-        size=10,
-        color = y_points['measurement'], #set color equal to a variable
-        colorscale='Viridis',
-        showscale=False,
-        line = dict(
-            color = 'rgb(0, 0, 0)',
-            width = 2
-          )
-    )
-    )
-
-    trace1z = go.Scatter(
-    x = z_points['date'],
-    y = z_points['Rayleigh limit (um)'],
-    mode='markers',
-    name = 'z',
-    opacity = 0.5,
-    marker=dict(
-        size=10,
-        color = z_points['measurement'], #set color equal to a variable
-        colorscale='Viridis',
-        showscale=False,
-        line = dict(
-            color = 'rgb(0, 0, 0)',
-            width = 2
-          )
-    )
-    )
+    
     
     trace2 = go.Scatter(
     x = summary['date'],
     y = summary['Rayleigh limit (um)_summary'],
     mode='markers',
+    name = 'average',
     opacity = 0.5,
     showlegend=False,
     marker=dict(
@@ -120,8 +95,8 @@ def plot_psf(frame):
             'yref': 'y',
             'x0': '2018-01-01',
             'x1': '2019-12-31',
-            'y0': 0.25,
-            'y1': 0.25,
+            'y0': lateral,
+            'y1': lateral,
             'line': {
                 'color': 'rgb(0, 0, 0)',
                 'width': 3,
@@ -135,8 +110,8 @@ def plot_psf(frame):
             'yref': 'y',
             'x0': '2018-01-01',
             'x1': '2019-12-31',
-            'y0': 0.55,
-            'y1': 0.55,
+            'y0': axial,
+            'y1': axial,
             'line': {
                 'color': 'rgb(10, 171, 30)',
                 'width': 3,
@@ -144,50 +119,41 @@ def plot_psf(frame):
             },
         },
     ],
-    # 'annotations': [
-    #     dict(
-    #         x='2018-03-01',
-    #         y=0.18,
-    #         xref='x',
-    #         yref='y',
-    #         text='Lateral diffraction limit',
-            
-    #     ),
-    #     dict(
-    #         x='2018-03-01',
-    #         y=0.48,
-    #         xref='x',
-    #         yref='y',
-    #         text='Axial diffraction limit',
-            
-    #     )
-    # ]
-}
-    trace3 = go.Scatter(
-    x=['2018-03-01','2018-03-01'],
-    y=[0.18, 0.48],
-    text=['Lateral diffraction limit', 'Axial diffraction limit'],
-    mode='text',
-    textfont=dict(
-        color='black',
-        size=10,
-        family='Arial',
-    ),
-    showlegend=False
-)
-
+   
+}   
+    data = [trace1, trace2]
+    if (type(lateral) != list):
+        trace3 = go.Scatter(
+        x=['2018-03-01','2018-03-01'],
+        y=[lateral - 0.07, axial - 0.07],
+        text=['Lateral diffraction limit', 'Axial diffraction limit'],
+        mode='text',
+        textfont=dict(
+            color='black',
+            size=10,
+            family='Arial',
+        ),
+        showlegend=False
+        )
+        data.append(trace3)
+        
+        
     
-    data = [trace1x, trace1y, trace1z, trace2, trace3]
+        
     fig = {
     'data': data,
     'layout': layout,
 }
-    url = py.offline.plot(fig, filename="psf.html")
+    url = py.offline.plot(fig, filename=os.path.join(directory,"psf.html"))
 
     return []
 
 
-def plot_pow(frame):
+
+
+
+
+def plot_pow(frame, directory):
     lengths = frame.laser_wavelength.unique()
     data = []
     for length in lengths:
@@ -217,7 +183,7 @@ def plot_pow(frame):
                 )
             )
         data.append(trace)
-    url = py.offline.plot(data, filename="pow.html")
+    url = py.offline.plot(data, filename=os.path.join(directory,"pow.html"))
     return []
 
 

@@ -2,11 +2,13 @@ import pandas as pd
 from get_directory import get_directory, get_subdirectories
 import os
 from append_data import append_data_pow,append_data_psf
-from collect_data import collect_data_psf,collect_data_pow
+from collect_data import collect_data_psf,collect_data_pow, collect_limits
 from plot import plot_psf, plot_pow
 
 def plot_history():
     directory = get_directory()
+    lateral, axial = collect_limits(directory)
+    print(lateral, axial)
     subs = get_subdirectories(directory)
     frame_psf = pd.DataFrame()
     frame_pow = pd.DataFrame()
@@ -18,8 +20,8 @@ def plot_history():
         if isinstance(data_psf, pd.DataFrame):
             frame_psf = append_data_psf(data_psf, frame_psf, folder)
     
-    plot_psf(frame_psf)
-    plot_pow(frame_pow)
+    plot_psf(frame_psf,directory,lateral,axial)
+    plot_pow(frame_pow,directory)
 
 
 
