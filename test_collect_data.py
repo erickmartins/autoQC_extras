@@ -27,8 +27,9 @@ def test_return_type_pow():
 
 def test_return_size_psf():
     folder = './test_data'
-    assert collect_data_psf(folder).shape == (3,5)
+    print(collect_data_psf(folder).shape)
+    assert collect_data_psf(folder).shape == (9,5)
 
 def test_return_size_pow():
     folder = './test_data'
-    assert collect_data_pow(folder).shape == (3,2)
+    assert collect_data_pow(folder).shape == (4,2)
