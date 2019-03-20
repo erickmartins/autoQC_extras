@@ -36,8 +36,9 @@ def collect_limits(folder):
     if os.path.exists(os.path.join(directory,"resolution_limits.csv")):
         data = pd.read_csv(os.path.join(directory,"resolution_limits.csv"))
         data = data.dropna()
-        lateral = data[data['microscope'] == foldername]['lateral'][0]
-        axial = data[data['microscope'] == foldername]['axial'][0]
+        print(data[data['microscope']==foldername]['lateral'].iloc[0])
+        lateral = data[data['microscope'] == foldername]['lateral'].iloc[0]
+        axial = data[data['microscope'] == foldername]['axial'].iloc[0]
     else:
         lateral = []
         axial = []
