@@ -144,7 +144,11 @@ def plot_psf(frame, directory, lateral, axial):
     'data': data,
     'layout': layout,
 }
-    url = py.offline.plot(fig, filename=os.path.join(directory,"psf.html"))
+    url = py.offline.plot(fig, include_plotlyjs=False, output_type='div')
+    f = open(os.path.join(directory,"psf.html"), 'w')
+    f.write('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>\n')
+    f.write(url)
+    f.close()
 
     return []
 
@@ -183,7 +187,11 @@ def plot_pow(frame, directory):
                 )
             )
         data.append(trace)
-    url = py.offline.plot(data, filename=os.path.join(directory,"pow.html"))
+    url = py.offline.plot(data, include_plotlyjs=False, output_type='div')
+    f = open(os.path.join(directory,"pow.html"), 'w')
+    f.write('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>\n')
+    f.write(url)
+    f.close()
     return []
 
 
