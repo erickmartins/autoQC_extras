@@ -164,7 +164,7 @@ def plot_pow(frame, directory):
         subframe = frame[frame['laser_wavelength']==length]
         subframe = subframe.sort_values(['date'])
         trace = go.Scatter(
-            x=['2018-03-01','2018-03-01'],
+            x = subframe['date'],
             y = subframe['laser_power'],
             mode='lines+markers',
             opacity = 1.0,
@@ -187,7 +187,16 @@ def plot_pow(frame, directory):
                 )
             )
         data.append(trace)
-    url = py.offline.plot(data, include_plotlyjs=False, output_type='div')
+    layout = {
+        'xaxis': {
+        'range': ['2018-01-01', '2019-12-31']
+    }
+    }
+    fig = {
+    'data': data,
+    'layout': layout,
+    }
+    url = py.offline.plot(fig, include_plotlyjs=False, output_type='div')
     f = open(os.path.join(directory,"pow.html"), 'w')
     f.write('<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>\n')
     f.write(url)
