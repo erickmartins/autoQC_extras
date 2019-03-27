@@ -164,7 +164,7 @@ def plot_pow(frame, directory):
         subframe = frame[frame['laser_wavelength']==length]
         subframe = subframe.sort_values(['date'])
         trace = go.Scatter(
-            x = subframe['date'],
+            x=['2018-03-01','2018-03-01'],
             y = subframe['laser_power'],
             mode='lines+markers',
             opacity = 1.0,
